@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef, useEffect } from "react"
+import { useRef, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -21,13 +21,7 @@ import {
 } from "lucide-react"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-
-interface Message {
-  id: number
-  role: "user" | "assistant"
-  content: string
-  timestamp: Date
-}
+import { useChat } from "ai/react"
 
 const quickPrompts = [
   { icon: Calculator, text: "Explain calculus derivatives", category: "Math" },
@@ -37,17 +31,18 @@ const quickPrompts = [
 ]
 
 export default function AITutorPage() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      role: "assistant",
-      content:
-        "Hi! I'm your AI study assistant. I can help you with homework, explain complex concepts, provide step-by-step solutions, and answer any questions you have. What would you like to learn today?",
-      timestamp: new Date(),
-    },
-  ])
-  const [input, setInput] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    api: "/api/chat",
+    initialMessages: [
+      {
+        id: "1",
+        role: "assistant",
+        content:
+          "Hi! I'm your AI study assistant powered by DeepSeek. I can help you with homework, explain complex concepts, provide step-by-step solutions, and answer any questions you have. What would you like to learn today?",
+      },
+    ],
+  })
+
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -56,53 +51,14 @@ export default function AITutorPage() {
     }
   }, [messages])
 
-  const handleSend = async () => {
-    if (!input.trim()) return
-
-    const userMessage: Message = {
-      id: messages.length + 1,
-      role: "user",
-      content: input,
-      timestamp: new Date(),
-    }
-
-    setMessages((prev) => [...prev, userMessage])
-    setInput("")
-    setIsTyping(true)
-
-    // Simulate AI response
-    setTimeout(() => {
-      const aiMessage: Message = {
-        id: messages.length + 2,
-        role: "assistant",
-        content: generateMockResponse(input),
-        timestamp: new Date(),
-      }
-      setMessages((prev) => [...prev, aiMessage])
-      setIsTyping(false)
-    }, 1500)
-  }
-
-  const generateMockResponse = (query: string): string => {
-    if (query.toLowerCase().includes("derivative")) {
-      return "Great question! A derivative represents the rate of change of a function. Here's a step-by-step explanation:\n\n1. **Basic Definition**: The derivative of f(x) at point x is the limit: f'(x) = lim(h→0) [f(x+h) - f(x)]/h\n\n2. **Power Rule**: For f(x) = x^n, the derivative is f'(x) = nx^(n-1)\n\n3. **Example**: If f(x) = x², then f'(x) = 2x\n\nWould you like me to explain any specific derivative rule or work through a practice problem?"
-    }
-
-    if (query.toLowerCase().includes("python") || query.toLowerCase().includes("code")) {
-      return "I'd be happy to help with your Python code! To assist you better, please:\n\n1. Share the code snippet you're working on\n2. Describe what you're trying to achieve\n3. Explain what error or unexpected behavior you're seeing\n\nOnce you provide these details, I can help debug and explain the solution step by step!"
-    }
-
-    return "That's an interesting question! I can help you understand this topic better. Could you provide more details or context? For example:\n\n• What specific aspect are you struggling with?\n• Is this for a particular subject or course?\n• Would you like a simple explanation or a detailed breakdown?\n\nThe more information you share, the better I can tailor my explanation to your needs!"
-  }
-
   const handleQuickPrompt = (prompt: string) => {
-    setInput(prompt)
+    handleInputChange({ target: { value: prompt } } as React.ChangeEvent<HTMLInputElement>)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
-      handleSend()
+      handleSubmit(e as any)
     }
   }
 
@@ -130,7 +86,7 @@ export default function AITutorPage() {
               </div>
               <div>
                 <h1 className="text-xl sm:text-2xl font-black gradient-text">24/7 AI Study Assistant</h1>
-                <p className="text-xs text-muted-foreground hidden sm:block">Get instant help with any subject</p>
+                <p className="text-xs text-muted-foreground hidden sm:block">Powered by DeepSeek AI</p>
               </div>
             </div>
           </div>
@@ -163,9 +119,6 @@ export default function AITutorPage() {
                   } rounded-2xl p-4 shadow-lg`}
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-line">{message.content}</p>
-                  <p className="text-xs opacity-70 mt-2">
-                    {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                  </p>
                 </div>
 
                 {message.role === "user" && (
@@ -178,7 +131,7 @@ export default function AITutorPage() {
               </div>
             ))}
 
-            {isTyping && (
+            {isLoading && (
               <div className="flex gap-3 justify-start">
                 <Avatar className="h-10 w-10 border-2 border-primary/20">
                   <AvatarFallback className="bg-gradient-to-br from-primary to-secondary">
@@ -229,26 +182,27 @@ export default function AITutorPage() {
         {/* Input Area */}
         <Card className="border-2 border-border/50 bg-card/50 backdrop-blur-sm shadow-xl">
           <CardContent className="p-4">
-            <div className="flex gap-3">
+            <form onSubmit={handleSubmit} className="flex gap-3">
               <Input
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything... (Press Enter to send)"
                 className="flex-1 h-12 border-2"
+                disabled={isLoading}
               />
               <Button
-                onClick={handleSend}
-                disabled={!input.trim() || isTyping}
+                type="submit"
+                disabled={!input.trim() || isLoading}
                 size="lg"
                 className="bg-gradient-to-r from-primary to-secondary text-primary-foreground font-bold hover:scale-105 transition-smooth shadow-lg px-6"
               >
                 <Send className="h-5 w-5" />
               </Button>
-            </div>
+            </form>
             <p className="text-xs text-muted-foreground mt-3 flex items-center gap-1">
               <Sparkles className="h-3 w-3" />
-              Powered by advanced AI • Available 24/7 • Supports all subjects
+              Powered by DeepSeek AI • Available 24/7 • Supports all subjects
             </p>
           </CardContent>
         </Card>

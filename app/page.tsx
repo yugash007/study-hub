@@ -22,6 +22,9 @@ import {
   MessageSquare,
   Timer,
   Trophy,
+  Rocket,
+  Star,
+  Upload,
 } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
@@ -30,20 +33,28 @@ import { useAuth } from "@/lib/auth-context"
 
 const tools = [
   {
-    id: "formula-generator",
-    title: "Formula & Code Sheet Generator",
-    description: "Extract key formulas and code snippets from PDFs into concise 2-page cheat sheets",
-    icon: BookOpen,
-    href: "/tools/formula-generator",
+    id: "flashcards",
+    title: "AI Flashcard Generator",
+    description: "Create smart flashcards with spaced repetition algorithm for optimal retention",
+    icon: Brain,
+    href: "/tools/flashcards",
     color: "primary",
   },
   {
-    id: "analogy-engine",
-    title: "Analogy Engine Explainer",
-    description: "Get simple analogies and exam-style definitions for complex topics",
-    icon: Lightbulb,
-    href: "/tools/analogy-engine",
+    id: "ai-tutor",
+    title: "24/7 AI Study Assistant",
+    description: "Get instant help with homework, explanations, and step-by-step solutions",
+    icon: MessageSquare,
+    href: "/tools/ai-tutor",
     color: "secondary",
+  },
+  {
+    id: "upload-materials",
+    title: "Upload & Summarize",
+    description: "Upload PDFs, documents, or code files. AI will summarize and create flashcards automatically",
+    icon: Upload,
+    href: "/tools/upload-materials",
+    color: "accent",
   },
   {
     id: "exam-heatmap",
@@ -62,43 +73,19 @@ const tools = [
     color: "success",
   },
   {
-    id: "revision-planner",
-    title: "Time-Smart Revision Planner",
-    description: "Automated, prioritized revision schedule based on your available time",
-    icon: Clock,
-    href: "/tools/revision-planner",
+    id: "formula-generator",
+    title: "Formula & Code Sheet Generator",
+    description: "Extract key formulas and code snippets from PDFs into concise 2-page cheat sheets",
+    icon: BookOpen,
+    href: "/tools/formula-generator",
     color: "warning",
   },
   {
-    id: "code-fixer",
-    title: "Error Fixer for Code Snippets",
-    description: "Automatically debug and fix code examples from your lecture notes",
-    icon: Code,
-    href: "/tools/code-fixer",
-    color: "secondary",
-  },
-  {
-    id: "study-arena",
-    title: "Group Study Arena",
-    description: "Virtual study room with collaborative tools and gamified challenges",
-    icon: Users,
-    href: "/tools/study-arena",
-    color: "accent",
-  },
-  {
-    id: "flashcards",
-    title: "AI Flashcard Generator",
-    description: "Create smart flashcards with spaced repetition algorithm for optimal retention",
-    icon: Brain,
-    href: "/tools/flashcards",
-    color: "primary",
-  },
-  {
-    id: "ai-tutor",
-    title: "24/7 AI Study Assistant",
-    description: "Get instant help with homework, explanations, and step-by-step solutions",
-    icon: MessageSquare,
-    href: "/tools/ai-tutor",
+    id: "analogy-engine",
+    title: "Analogy Engine Explainer",
+    description: "Get simple analogies and exam-style definitions for complex topics",
+    icon: Lightbulb,
+    href: "/tools/analogy-engine",
     color: "secondary",
   },
   {
@@ -107,7 +94,31 @@ const tools = [
     description: "Stay focused with customizable study sessions and break reminders",
     icon: Timer,
     href: "/tools/focus-timer",
+    color: "primary",
+  },
+  {
+    id: "revision-planner",
+    title: "Time-Smart Revision Planner",
+    description: "Automated, prioritized revision schedule based on your available time",
+    icon: Clock,
+    href: "/tools/revision-planner",
+    color: "accent",
+  },
+  {
+    id: "code-fixer",
+    title: "Error Fixer for Code Snippets",
+    description: "Automatically debug and fix code examples from your lecture notes",
+    icon: Code,
+    href: "/tools/code-fixer",
     color: "success",
+  },
+  {
+    id: "study-arena",
+    title: "Group Study Arena",
+    description: "Virtual study room with collaborative tools and gamified challenges",
+    icon: Users,
+    href: "/tools/study-arena",
+    color: "warning",
   },
 ]
 
@@ -152,19 +163,19 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Grid pattern background */}
-      <div className="fixed inset-0 grid-pattern opacity-50 pointer-events-none" />
+    <div className="min-h-screen bg-background overflow-hidden">
+      <div className="fixed inset-0 animate-gradient-rotate pointer-events-none" />
+      <div className="fixed inset-0 grid-pattern opacity-30 pointer-events-none" />
 
-      {/* Gradient orb effects */}
-      <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[150px] pointer-events-none animate-float" />
+      <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px] pointer-events-none animate-float delay-300" />
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-secondary/15 rounded-full blur-[100px] pointer-events-none animate-float delay-500" />
 
-      <header className="sticky top-0 z-50 backdrop-blur-strong bg-background/80 border-b border-border/50">
+      <header className="sticky top-0 z-50 backdrop-blur-strong bg-background/80 border-b border-border/50 animate-slide-up">
         <div className="container mx-auto px-4 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary transition-smooth group-hover:scale-110 group-hover:glow-primary">
+              <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary via-secondary to-accent transition-smooth group-hover:scale-110 group-hover:glow-primary animate-gradient-border">
                 <BookOpen className="h-6 w-6 text-primary-foreground" />
               </div>
               <h1 className="text-2xl font-black gradient-text">StudyHub</h1>
@@ -173,14 +184,14 @@ export default function HomePage() {
             <nav className="flex items-center gap-3">
               <Link
                 href="#tools"
-                className="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-smooth"
+                className="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-smooth hover:scale-105"
               >
                 <Sparkles className="h-4 w-4" />
                 Tools
               </Link>
               <Link
                 href="/dashboard"
-                className="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-smooth"
+                className="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-smooth hover:scale-105"
               >
                 <BarChart3 className="h-4 w-4" />
                 Dashboard
@@ -190,7 +201,7 @@ export default function HomePage() {
                   variant="outline"
                   size="icon"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="border-2 hover:scale-110 transition-smooth"
+                  className="border-2 hover:scale-110 transition-smooth hover:glow-primary"
                 >
                   {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                 </Button>
@@ -199,12 +210,16 @@ export default function HomePage() {
                 <UserNav />
               ) : (
                 <>
-                  <Button asChild variant="ghost" className="hidden sm:inline-flex font-bold">
+                  <Button
+                    asChild
+                    variant="ghost"
+                    className="hidden sm:inline-flex font-bold hover:scale-105 transition-smooth"
+                  >
                     <Link href="/login">Sign In</Link>
                   </Button>
                   <Button
                     asChild
-                    className="bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground font-bold hover:scale-105 transition-smooth shadow-lg hover:glow-primary"
+                    className="bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground font-bold hover:scale-105 transition-smooth shadow-lg hover:glow-primary shimmer"
                   >
                     <Link href="/signup">Get Started Free</Link>
                   </Button>
@@ -217,30 +232,31 @@ export default function HomePage() {
 
       <section className="relative container mx-auto px-4 lg:px-8 py-16 md:py-24 lg:py-32">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 mb-6 px-5 py-2.5 rounded-full border-2 border-primary/30 bg-primary/10 backdrop-blur-sm animate-float">
-            <Sparkles className="h-4 w-4 text-primary" />
+          <div className="inline-flex items-center gap-2 mb-6 px-5 py-2.5 rounded-full border-2 border-primary/30 bg-primary/10 backdrop-blur-sm animate-float animate-scale-in">
+            <Star className="h-4 w-4 text-primary animate-spin-slow" />
             <span className="text-sm font-bold gradient-text">AI-Powered Learning Platform</span>
+            <Sparkles className="h-4 w-4 text-accent" />
           </div>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-balance leading-[1.1] tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-balance leading-[1.1] tracking-tight animate-slide-up delay-100">
             Master Any Subject
             <br />
             <span className="gradient-text">10x Faster with AI</span>
           </h2>
 
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed text-pretty max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed text-pretty max-w-3xl mx-auto animate-slide-up delay-200">
             The complete AI study toolkit with flashcards, spaced repetition, progress tracking, gamification, and 24/7
             AI tutoring. Everything you need to ace your exams.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up delay-300">
             <Button
               size="lg"
               asChild
-              className="w-full sm:w-auto text-base font-bold bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground hover:scale-105 transition-smooth px-8 py-6 shadow-xl hover:glow-primary"
+              className="w-full sm:w-auto text-base font-bold bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground hover:scale-105 transition-smooth px-8 py-6 shadow-xl hover:glow-primary shimmer"
             >
               <Link href="/signup">
-                <Sparkles className="mr-2 h-5 w-5" />
+                <Rocket className="mr-2 h-5 w-5" />
                 Start Learning Free
               </Link>
             </Button>
@@ -248,31 +264,32 @@ export default function HomePage() {
               size="lg"
               variant="outline"
               asChild
-              className="w-full sm:w-auto text-base font-bold border-2 hover:scale-105 transition-smooth px-8 py-6 bg-transparent"
+              className="w-full sm:w-auto text-base font-bold border-2 hover:scale-105 transition-smooth px-8 py-6 bg-transparent hover:bg-primary/5"
             >
-              <Link href="#tools">Explore Tools</Link>
+              <Link href="#tools">
+                <Sparkles className="mr-2 h-5 w-5" />
+                Explore Tools
+              </Link>
             </Button>
           </div>
 
-          {/* Trust indicators */}
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              <span>50,000+ Students</span>
+          <div className="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground animate-fade-in delay-400">
+            <div className="flex items-center gap-2 hover:text-foreground transition-smooth hover:scale-110">
+              <Users className="h-4 w-4 text-primary" />
+              <span className="font-semibold">50,000+ Students</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Award className="h-4 w-4" />
-              <span>4.9/5 Rating</span>
+            <div className="flex items-center gap-2 hover:text-foreground transition-smooth hover:scale-110">
+              <Award className="h-4 w-4 text-warning" />
+              <span className="font-semibold">4.9/5 Rating</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Zap className="h-4 w-4" />
-              <span>1M+ Study Sessions</span>
+            <div className="flex items-center gap-2 hover:text-foreground transition-smooth hover:scale-110">
+              <Zap className="h-4 w-4 text-accent" />
+              <span className="font-semibold">1M+ Study Sessions</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Grid */}
       <section className="relative container mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
           {features.map((feature, index) => {
@@ -280,10 +297,10 @@ export default function HomePage() {
             return (
               <Card
                 key={index}
-                className="relative overflow-hidden border-2 border-border/50 bg-card/50 backdrop-blur-sm hover-lift hover:border-primary/30 transition-smooth"
+                className={`relative overflow-hidden border-2 border-border/50 bg-card/50 backdrop-blur-sm hover-glow-intense transition-smooth animate-scale-in delay-${(index + 1) * 100}`}
               >
                 <CardContent className="p-6 text-center">
-                  <Icon className={`h-8 w-8 mx-auto mb-3 ${feature.color}`} />
+                  <Icon className={`h-8 w-8 mx-auto mb-3 ${feature.color} animate-float delay-${index * 100}`} />
                   <div className="text-3xl font-black gradient-text mb-1">{feature.value}</div>
                   <div className="text-sm font-bold mb-1">{feature.label}</div>
                   <div className="text-xs text-muted-foreground">{feature.description}</div>
@@ -295,7 +312,7 @@ export default function HomePage() {
       </section>
 
       <section id="tools" className="relative container mx-auto px-4 lg:px-8 py-16 md:py-20">
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center mb-12 md:mb-16 animate-slide-up">
           <h3 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 md:mb-6 tracking-tight">
             Your Complete <span className="gradient-text">Study Arsenal</span>
           </h3>
@@ -311,12 +328,9 @@ export default function HomePage() {
             return (
               <Link key={tool.id} href={tool.href} className="group">
                 <Card
-                  className="h-full border-2 border-border/50 bg-card/50 backdrop-blur-sm hover-lift hover:border-primary/30 transition-smooth cursor-pointer overflow-hidden relative"
-                  style={{
-                    animationDelay: `${index * 50}ms`,
-                  }}
+                  className={`h-full border-2 border-border/50 bg-card/50 backdrop-blur-sm hover-glow-intense transition-smooth cursor-pointer overflow-hidden relative animate-slide-up delay-${Math.min(index * 100, 600)}`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-smooth" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-smooth animate-gradient-rotate" />
 
                   <CardHeader className="relative">
                     <div className="flex items-start gap-4">
@@ -333,7 +347,7 @@ export default function HomePage() {
                                   : tool.color === "warning"
                                     ? "bg-warning"
                                     : "bg-primary"
-                        } transition-smooth group-hover:scale-110 shadow-lg ${
+                        } transition-smooth group-hover:scale-110 group-hover:rotate-6 shadow-lg ${
                           tool.color === "primary"
                             ? "group-hover:glow-primary"
                             : tool.color === "secondary"
@@ -382,12 +396,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="relative container mx-auto px-4 lg:px-8 py-16 md:py-20">
-        <div className="max-w-4xl mx-auto">
-          <Card className="relative overflow-hidden border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 backdrop-blur-sm">
-            <CardContent className="p-8 md:p-12 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent mb-6 glow-primary">
+        <div className="max-w-4xl mx-auto animate-scale-in">
+          <Card className="relative overflow-hidden border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 backdrop-blur-sm hover-glow-intense transition-smooth">
+            <div className="absolute inset-0 animate-gradient-rotate opacity-50" />
+            <CardContent className="relative p-8 md:p-12 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent mb-6 glow-primary animate-pulse-glow shimmer">
                 <Zap className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-3xl sm:text-4xl font-black mb-4 tracking-tight">
@@ -400,10 +414,10 @@ export default function HomePage() {
               <Button
                 size="lg"
                 asChild
-                className="text-base font-bold bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground hover:scale-105 transition-smooth px-8 py-6 shadow-xl hover:glow-primary"
+                className="text-base font-bold bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground hover:scale-105 transition-smooth px-8 py-6 shadow-xl hover:glow-primary shimmer"
               >
                 <Link href="/signup">
-                  <Sparkles className="mr-2 h-5 w-5" />
+                  <Rocket className="mr-2 h-5 w-5" />
                   Get Started Free
                 </Link>
               </Button>
@@ -412,11 +426,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="relative backdrop-blur-strong bg-background/80 border-t border-border/50 py-8 mt-16 md:mt-20">
+      <footer className="relative backdrop-blur-strong bg-background/80 border-t border-border/50 py-8 mt-16 md:mt-20 animate-fade-in">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary via-secondary to-accent shadow-lg glow-primary">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary via-secondary to-accent shadow-lg glow-primary animate-gradient-border">
                 <BookOpen className="h-5 w-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-black gradient-text">StudyHub</span>
