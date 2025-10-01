@@ -80,18 +80,6 @@ export interface UserProfile {
   lastActive: Timestamp
 }
 
-export interface StudyMaterial {
-  id?: string
-  userId: string
-  title: string
-  content: string // AI-generated summary
-  originalFileName: string
-  fileType: string
-  category: string
-  flashcardsGenerated?: number
-  createdAt: Timestamp
-}
-
 // Study Sessions
 export const saveStudySession = async (session: Omit<StudySession, "id" | "completedAt">) => {
   try {
@@ -300,40 +288,6 @@ export const addXPToUser = async (userId: string, xp: number) => {
     }
   } catch (error) {
     console.error("Error adding XP to user:", error)
-    throw error
-  }
-}
-
-// Study Materials
-export const saveStudyMaterial = async (material: Omit<StudyMaterial, "id" | "createdAt">) => {
-  try {
-    const docRef = await addDoc(collection(db, "study_materials"), {
-      ...material,
-      createdAt: serverTimestamp(),
-    })
-    return docRef.id
-  } catch (error) {
-    console.error("Error saving study material:", error)
-    throw error
-  }
-}
-
-export const getUserStudyMaterials = async (userId: string) => {
-  try {
-    const q = query(collection(db, "study_materials"), where("userId", "==", userId), orderBy("createdAt", "desc"))
-    const querySnapshot = await getDocs(q)
-    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as StudyMaterial)
-  } catch (error) {
-    console.error("Error getting study materials:", error)
-    throw error
-  }
-}
-
-export const deleteStudyMaterial = async (id: string) => {
-  try {
-    await deleteDoc(doc(db, "study_materials", id))
-  } catch (error) {
-    console.error("Error deleting study material:", error)
     throw error
   }
 }

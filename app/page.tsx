@@ -24,7 +24,6 @@ import {
   Trophy,
   Rocket,
   Star,
-  Upload,
 } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
@@ -47,14 +46,6 @@ const tools = [
     icon: MessageSquare,
     href: "/tools/ai-tutor",
     color: "secondary",
-  },
-  {
-    id: "upload-materials",
-    title: "Upload & Summarize",
-    description: "Upload PDFs, documents, or code files. AI will summarize and create flashcards automatically",
-    icon: Upload,
-    href: "/tools/upload-materials",
-    color: "accent",
   },
   {
     id: "exam-heatmap",
