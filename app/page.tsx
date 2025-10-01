@@ -67,7 +67,7 @@ const tools = [
     description: "Automated, prioritized revision schedule based on your available time",
     icon: Clock,
     href: "/tools/revision-planner",
-    color: "primary",
+    color: "warning",
   },
   {
     id: "code-fixer",
@@ -117,28 +117,28 @@ const features = [
     value: "365",
     label: "Day Streak",
     description: "Keep your learning momentum going",
-    color: "text-orange-500",
+    color: "text-warning",
   },
   {
     icon: Trophy,
     value: "10x",
     label: "Faster Learning",
     description: "AI-powered study optimization",
-    color: "text-yellow-500",
+    color: "text-primary",
   },
   {
     icon: Award,
     value: "50+",
     label: "Achievements",
     description: "Unlock rewards as you progress",
-    color: "text-purple-500",
+    color: "text-accent",
   },
   {
     icon: TrendingUp,
     value: "98%",
     label: "Success Rate",
     description: "Students improving their grades",
-    color: "text-green-500",
+    color: "text-success",
   },
 ]
 
@@ -158,7 +158,7 @@ export default function HomePage() {
 
       {/* Gradient orb effects */}
       <div className="fixed top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px] pointer-events-none" />
 
       <header className="sticky top-0 z-50 backdrop-blur-strong bg-background/80 border-b border-border/50">
         <div className="container mx-auto px-4 lg:px-8 py-4">
@@ -204,7 +204,7 @@ export default function HomePage() {
                   </Button>
                   <Button
                     asChild
-                    className="bg-gradient-to-r from-primary to-secondary text-primary-foreground font-bold hover:scale-105 transition-smooth shadow-lg hover:glow-primary"
+                    className="bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground font-bold hover:scale-105 transition-smooth shadow-lg hover:glow-primary"
                   >
                     <Link href="/signup">Get Started Free</Link>
                   </Button>
@@ -237,7 +237,7 @@ export default function HomePage() {
             <Button
               size="lg"
               asChild
-              className="w-full sm:w-auto text-base font-bold bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:scale-105 transition-smooth px-8 py-6 shadow-xl hover:glow-primary"
+              className="w-full sm:w-auto text-base font-bold bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground hover:scale-105 transition-smooth px-8 py-6 shadow-xl hover:glow-primary"
             >
               <Link href="/signup">
                 <Sparkles className="mr-2 h-5 w-5" />
@@ -321,9 +321,47 @@ export default function HomePage() {
                   <CardHeader className="relative">
                     <div className="flex items-start gap-4">
                       <div
-                        className={`flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary transition-smooth group-hover:scale-110 shadow-lg group-hover:glow-primary`}
+                        className={`flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl ${
+                          tool.color === "primary"
+                            ? "bg-primary"
+                            : tool.color === "secondary"
+                              ? "bg-secondary"
+                              : tool.color === "accent"
+                                ? "bg-accent"
+                                : tool.color === "success"
+                                  ? "bg-success"
+                                  : tool.color === "warning"
+                                    ? "bg-warning"
+                                    : "bg-primary"
+                        } transition-smooth group-hover:scale-110 shadow-lg ${
+                          tool.color === "primary"
+                            ? "group-hover:glow-primary"
+                            : tool.color === "secondary"
+                              ? "group-hover:glow-secondary"
+                              : tool.color === "accent"
+                                ? "group-hover:glow-accent"
+                                : tool.color === "success"
+                                  ? "group-hover:glow-success"
+                                  : tool.color === "warning"
+                                    ? "group-hover:glow-warning"
+                                    : "group-hover:glow-primary"
+                        }`}
                       >
-                        <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-primary-foreground" />
+                        <Icon
+                          className={`h-6 w-6 sm:h-7 sm:w-7 ${
+                            tool.color === "primary"
+                              ? "text-primary-foreground"
+                              : tool.color === "secondary"
+                                ? "text-secondary-foreground"
+                                : tool.color === "accent"
+                                  ? "text-accent-foreground"
+                                  : tool.color === "success"
+                                    ? "text-success-foreground"
+                                    : tool.color === "warning"
+                                      ? "text-warning-foreground"
+                                      : "text-primary-foreground"
+                          }`}
+                        />
                       </div>
                       <div className="flex-1">
                         <CardTitle className="text-lg sm:text-xl font-bold mb-2 group-hover:gradient-text transition-smooth">
@@ -349,7 +387,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto">
           <Card className="relative overflow-hidden border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 backdrop-blur-sm">
             <CardContent className="p-8 md:p-12 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-6 glow-primary">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent mb-6 glow-primary">
                 <Zap className="h-8 w-8 text-primary-foreground" />
               </div>
               <h3 className="text-3xl sm:text-4xl font-black mb-4 tracking-tight">
@@ -362,7 +400,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 asChild
-                className="text-base font-bold bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:scale-105 transition-smooth px-8 py-6 shadow-xl hover:glow-primary"
+                className="text-base font-bold bg-gradient-to-r from-primary via-secondary to-accent text-primary-foreground hover:scale-105 transition-smooth px-8 py-6 shadow-xl hover:glow-primary"
               >
                 <Link href="/signup">
                   <Sparkles className="mr-2 h-5 w-5" />
@@ -378,7 +416,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary shadow-lg glow-primary">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary via-secondary to-accent shadow-lg glow-primary">
                 <BookOpen className="h-5 w-5 text-primary-foreground" />
               </div>
               <span className="text-xl font-black gradient-text">StudyHub</span>
