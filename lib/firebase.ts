@@ -5,13 +5,13 @@ import { getStorage } from "firebase/storage"
 import { getAnalytics } from "firebase/analytics"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDWW8Z5CPHERF3QkjFEwBzciBeFbGQfxf4",
-  authDomain: "ai-hub-53e08.firebaseapp.com",
-  projectId: "ai-hub-53e08",
-  storageBucket: "ai-hub-53e08.firebasestorage.app",
-  messagingSenderId: "598091610119",
-  appId: "1:598091610119:web:d5e6c2cc24930a643a52a2",
-  measurementId: "G-4K211SZ863",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 }
 
 // Initialize Firebase (singleton pattern)

@@ -12,6 +12,7 @@ import {
   limit,
   type Timestamp,
   serverTimestamp,
+  setDoc,
 } from "firebase/firestore"
 import { db } from "./firebase"
 
@@ -23,35 +24,6 @@ export interface StudySession {
   completedAt: Timestamp
   type: "focus" | "pomodoro"
   xpEarned: number
-}
-
-export interface Flashcard {
-  id?: string
-  userId: string
-  question: string
-  answer: string
-  category: string
-  difficulty?: "easy" | "medium" | "hard"
-  createdAt: Timestamp
-  lastReviewed?: Timestamp
-  reviewCount: number
-}
-
-export interface Quiz {
-  id?: string
-  userId: string
-  title: string
-  questions: QuizQuestion[]
-  score?: number
-  completedAt?: Timestamp
-  createdAt: Timestamp
-}
-
-export interface QuizQuestion {
-  question: string
-  options: string[]
-  correctAnswer: number
-  explanation?: string
 }
 
 export interface AIConversation {
@@ -110,81 +82,6 @@ export const getUserStudySessions = async (userId: string, limitCount = 10) => {
   }
 }
 
-// Flashcards
-export const createFlashcard = async (flashcard: Omit<Flashcard, "id" | "createdAt" | "reviewCount">) => {
-  try {
-    const docRef = await addDoc(collection(db, "flashcards"), {
-      ...flashcard,
-      createdAt: serverTimestamp(),
-      reviewCount: 0,
-    })
-    return docRef.id
-  } catch (error) {
-    console.error("Error creating flashcard:", error)
-    throw error
-  }
-}
-
-export const getUserFlashcards = async (userId: string, category?: string) => {
-  try {
-    let q = query(collection(db, "flashcards"), where("userId", "==", userId), orderBy("createdAt", "desc"))
-
-    if (category) {
-      q = query(q, where("category", "==", category))
-    }
-
-    const querySnapshot = await getDocs(q)
-    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as Flashcard)
-  } catch (error) {
-    console.error("Error getting flashcards:", error)
-    throw error
-  }
-}
-
-export const updateFlashcard = async (id: string, updates: Partial<Flashcard>) => {
-  try {
-    const docRef = doc(db, "flashcards", id)
-    await updateDoc(docRef, updates)
-  } catch (error) {
-    console.error("Error updating flashcard:", error)
-    throw error
-  }
-}
-
-export const deleteFlashcard = async (id: string) => {
-  try {
-    await deleteDoc(doc(db, "flashcards", id))
-  } catch (error) {
-    console.error("Error deleting flashcard:", error)
-    throw error
-  }
-}
-
-// Quizzes
-export const createQuiz = async (quiz: Omit<Quiz, "id" | "createdAt">) => {
-  try {
-    const docRef = await addDoc(collection(db, "quizzes"), {
-      ...quiz,
-      createdAt: serverTimestamp(),
-    })
-    return docRef.id
-  } catch (error) {
-    console.error("Error creating quiz:", error)
-    throw error
-  }
-}
-
-export const getUserQuizzes = async (userId: string) => {
-  try {
-    const q = query(collection(db, "quizzes"), where("userId", "==", userId), orderBy("createdAt", "desc"))
-    const querySnapshot = await getDocs(q)
-    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as Quiz)
-  } catch (error) {
-    console.error("Error getting quizzes:", error)
-    throw error
-  }
-}
-
 // AI Conversations
 export const saveAIConversation = async (conversation: Omit<AIConversation, "id" | "createdAt" | "updatedAt">) => {
   try {
@@ -233,7 +130,7 @@ export const getUserAIConversations = async (userId: string) => {
 export const createUserProfile = async (userId: string, email: string, displayName?: string) => {
   try {
     const docRef = doc(db, "users", userId)
-    await updateDoc(docRef, {
+    await setDoc(docRef, {
       email,
       displayName: displayName || "",
       totalXP: 0,
