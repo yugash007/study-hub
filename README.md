@@ -1,30 +1,62 @@
-# AI Study Tools
+# StudyHub - AI-Powered Learning Platform
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+**StudyHub** is a modern, AI-powered learning platform designed to help students study more effectively and efficiently. With a suite of powerful tools, StudyHub transforms the learning experience, making it more engaging, personalized, and effective.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/yugash05-6383s-projects/v0-ai-study-tools)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/lbLmiBl1thG)
+## ✨ Features
 
-## Overview
+- **AI Arena**: Engage with AI-powered tutors and challenges in the arena.
+- **Exam Prep Heatmap**: Visualize the most frequently tested topics from past exam papers.
+- **Focus Timer & Pomodoro**: Stay focused with customizable study sessions and break reminders.
+- **Time-Smart Revision Planner**: Get an automated, prioritized revision schedule based on your available time.
+- **Group Study Arena**: Collaborate with peers in a virtual study room with collaborative tools and gamified challenges.
+- **AI-Powered Analytics**: Get personalized insights into your study habits and progress.
+- **Gamification**: Stay motivated with streaks, achievements, and leaderboards.
+- **Responsive Design**: Study on any device, anytime, anywhere.
+- **Light & Dark Mode**: Choose the theme that best suits your study environment.
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## 🚀 Getting Started
 
-## Deployment
+### Prerequisites
 
-Your project is live at:
+- [Node.js](https://nodejs.org/en/) (v18 or higher)
+- [pnpm](https://pnpm.io/)
 
-**[https://vercel.com/yugash05-6383s-projects/v0-ai-study-tools](https://vercel.com/yugash05-6383s-projects/v0-ai-study-tools)**
+### Installation
 
-## Build your app
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/studyhub.git
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd studyhub
+    ```
+3.  Install the dependencies:
+    ```bash
+    pnpm install
+    ```
 
-Continue building your app on:
+### Running the Development Server
 
-**[https://v0.app/chat/projects/lbLmiBl1thG](https://v0.app/chat/projects/lbLmiBl1thG)**
+```bash
+pnpm dev
+```
 
-## How It Works
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## 🛠️ Built With
+
+- [Next.js](https://nextjs.org/) - React framework for production
+- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript for robust applications
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Firebase](https://firebase.google.com/) - Backend platform for building web and mobile applications
+- [Lucide React](https://lucide.dev/) - Beautiful and consistent icons
+- [shadcn/ui](https://ui.shadcn.com/) - Re-usable components built using Radix UI and Tailwind CSS
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss your ideas.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

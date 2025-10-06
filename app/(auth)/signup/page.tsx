@@ -40,7 +40,7 @@ export default function SignupPage() {
 
     try {
       await signup(email, password, name)
-      window.location.href = "/dashboard"
+      router.push("/dashboard")
     } catch (err) {
       setError("Failed to create account. Please try again.")
       setIsLoading(false)

@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -29,7 +28,7 @@ export default function LoginPage() {
     try {
       await login(email, password)
       const redirectTo = searchParams.get("redirect") || "/dashboard"
-      window.location.href = redirectTo
+      router.push(redirectTo)
     } catch (err) {
       setError("Invalid email or password")
       setIsLoading(false)

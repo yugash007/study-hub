@@ -5,11 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   BookOpen,
-  Lightbulb,
   BarChart3,
-  Target,
   Clock,
-  Code,
   Users,
   Moon,
   Sun,
@@ -18,7 +15,6 @@ import {
   TrendingUp,
   Award,
   Flame,
-  Brain,
   MessageSquare,
   Timer,
   Trophy,
@@ -32,19 +28,11 @@ import { useAuth } from "@/lib/auth-context"
 
 const tools = [
   {
-    id: "flashcards",
-    title: "AI Flashcard Generator",
-    description: "Create smart flashcards with spaced repetition algorithm for optimal retention",
-    icon: Brain,
-    href: "/tools/flashcards",
-    color: "primary",
-  },
-  {
-    id: "ai-tutor",
-    title: "24/7 AI Study Assistant",
-    description: "Get instant help with homework, explanations, and step-by-step solutions",
+    id: "ai-arena",
+    title: "AI Arena",
+    description: "Engage with AI-powered tutors and challenges in the arena.",
     icon: MessageSquare,
-    href: "/tools/ai-tutor",
+    href: "https://ai-study-arena.vercel.app",
     color: "secondary",
   },
   {
@@ -54,30 +42,6 @@ const tools = [
     icon: BarChart3,
     href: "/tools/exam-heatmap",
     color: "accent",
-  },
-  {
-    id: "weakness-detector",
-    title: "Topic Weakness Detector",
-    description: "Personalized quizzes that identify and help eliminate knowledge gaps",
-    icon: Target,
-    href: "/tools/weakness-detector",
-    color: "success",
-  },
-  {
-    id: "formula-generator",
-    title: "Formula & Code Sheet Generator",
-    description: "Extract key formulas and code snippets from PDFs into concise 2-page cheat sheets",
-    icon: BookOpen,
-    href: "/tools/formula-generator",
-    color: "warning",
-  },
-  {
-    id: "analogy-engine",
-    title: "Analogy Engine Explainer",
-    description: "Get simple analogies and exam-style definitions for complex topics",
-    icon: Lightbulb,
-    href: "/tools/analogy-engine",
-    color: "secondary",
   },
   {
     id: "focus-timer",
@@ -94,14 +58,6 @@ const tools = [
     icon: Clock,
     href: "/tools/revision-planner",
     color: "accent",
-  },
-  {
-    id: "code-fixer",
-    title: "Error Fixer for Code Snippets",
-    description: "Automatically debug and fix code examples from your lecture notes",
-    icon: Code,
-    href: "/tools/code-fixer",
-    color: "success",
   },
   {
     id: "study-arena",
